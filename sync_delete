@@ -1,5 +1,8 @@
 # sync_delete: [for use with sync] to sync local deletes to remote
 
+# see sync for full explanation
+
+
 # create an infinite loop to prime subsequent syncs
 while true
 do
@@ -12,7 +15,7 @@ read \?"Press enter to sync deletes."
 clear 
 echo "POST-DELETE\n" 
 
-# to sync the contents of a directory, the local paths below should end with /
+# to sync the contents of a directory
 
 # sync deletes
 rsync -vrt --delete [local path] [user]@[host IP]:[path] 
