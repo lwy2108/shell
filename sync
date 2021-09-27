@@ -3,20 +3,20 @@ while true
 do
 
 # prompt for user action before initiating sync / pause after completion
-echo "" ; 
-read \?"Press enter to sync." ; 
+echo "" 
+read \?"Press enter to sync." 
 
 # clear and print title
-clear ; echo "RSYNC WITH LWY-T14\n" ; 
+clear ; echo "RSYNC WITH LWY-T14\n" 
 
 # sync remote to local
 rsync -vrt --delete lwy@192.168.10.118:"/home/lwy/Downloads/*" /Users/lwy/Downloads/lwy-t14/ && 
 
 # sync local to remote (if successful)
-rsync -vrt --delete /Users/lwy/Downloads/lwy-t14/ lwy@192.168.10.118:/home/lwy/Downloads/ ; 
+rsync -vrt --delete /Users/lwy/Downloads/lwy-t14/ lwy@192.168.10.118:/home/lwy/Downloads/ 
 
 # describe action for next folder
-echo "\nSyncing code...\n" ;
+echo "\nSyncing code...\n"
 
 # sync remote to local (next folder)
 rsync -vrt --delete lwy@192.168.10.118:/home/lwy/Desktop/code/ /Users/lwy/code && 
