@@ -30,9 +30,7 @@ echo ""
 read \?"Press enter to sync." 
 
 # clear and print title
-clear ; echo "RSYNC WITH LWY-T14\n" 
-
-[local path] [user]@[host IP]:[path]
+clear ; echo "RSYNC WITH [HOSTNAME]\n" 
 
 # consider the command's skeleton: rsync [options] [source] [destination]
 # to sync the contents of a directory, the local paths below should end with /
