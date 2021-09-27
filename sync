@@ -1,3 +1,26 @@
+# sync: a simple, reliable and transparent sync solution for mirroring directories (local and remote) [use with sync_delete]
+
+# file deletions on remote behave as expected, but sync_delete must be used after every deletion on local
+
+# can be adapted for local-only use by substituting remote destination arguments for local ones, i.e. omit "user@[host IP]:"
+
+# customize this script by adding sections for more folders (not forgetting sync_delete as well)
+
+
+# This can be used on Unix-like (including macOS) or Linux systems with Rsync installed.
+
+# SSH for remote must first be configured, with addition of the client's public key to the remote host's authorized_keys (or similar).
+
+# On macOS, a passphrase is recommended for added security. For ease of use, the passphrase should be added to Keychain (ssh-add on Terminal).
+
+
+# A similar effect could have been achieved, with less trouble, using unison. That is the suggested path for those who do not have my concerns:
+#   the need for redundancy and explicit transparency on syncs, file changes and deletions
+#   the need for a robust system that mitigates data loss in a dual-machine setup (laptop and desktop)
+#     + the consideration that no other backup systems are used (and hence the requirement of redundancy)
+#   the need for a convenient, no-frills tool to sync work (mirror files) across the machines
+
+
 # create an unlimited loop to prime subsequent syncs
 while true
 do
@@ -9,20 +32,30 @@ read \?"Press enter to sync."
 # clear and print title
 clear ; echo "RSYNC WITH LWY-T14\n" 
 
+[local path] [user]@[host IP]:[path]
+
+# consider the command's skeleton: rsync [options] [source] [destination]
+# to sync the contents of a directory, the local paths below should end with /
+# when using wildcards (like *), the paths are expanded by the shell and rsync is given a request per every file
+#   this may lead to bugs because it limits the capability of --delete to do its job (avoid this)
+#   if using wildcards anyway, be sure to enclose the path in quotes (" ") (for remote path only)
+
 # sync remote to local
-rsync -vrt --delete lwy@192.168.10.118:"/home/lwy/Downloads/*" /Users/lwy/Downloads/lwy-t14/ && 
+rsync -vrt --delete [user]@[host IP]:[path] [local path] && 
 
 # sync local to remote (if successful)
-rsync -vrt --delete /Users/lwy/Downloads/lwy-t14/ lwy@192.168.10.118:/home/lwy/Downloads/ 
+rsync -vrt --delete [local path] [user]@[host IP]:[path] 
 
 # describe action for next folder
-echo "\nSyncing code...\n"
+echo "\nSyncing [folder]...\n"
 
 # sync remote to local (next folder)
-rsync -vrt --delete lwy@192.168.10.118:/home/lwy/Desktop/code/ /Users/lwy/code && 
+rsync -vrt --delete [user]@[host IP]:[path] [local path] && 
 
 # sync local to remote (if successful)
-rsync -vrt --delete /Users/lwy/code/ lwy@192.168.10.118:/home/lwy/Desktop/code
+rsync -vrt --delete [local path] [user]@[host IP]:[path]
+
+# ...
 
 # end current loop and continue
 done
