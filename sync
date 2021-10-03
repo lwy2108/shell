@@ -33,25 +33,25 @@ read \?"Press enter to sync."
 clear ; echo "RSYNC WITH [HOSTNAME]\n" 
 
 # consider the command's skeleton: rsync [options] [source] [destination]
-# to sync the contents of a directory, the local paths below should end with /
+# to sync the contents of a directory, the source paths below should end with /
 # when using wildcards (like *), the paths are expanded by the shell and rsync is given a request per every file
-#   this may lead to bugs because it limits the capability of --delete to do its job (avoid this)
+#   this may lead to bugs because it limits the capability of --delete to do its job (as in sync_delete)
 #   if using wildcards anyway, be sure to enclose the path in quotes (" ") (for remote path only)
 
 # sync remote to local
-rsync -vrt --delete [user]@[host IP]:[path] [local path] && 
+rsync -vrt --update [user]@[host IP]:[path]/ [local path] && 
 
 # sync local to remote (if successful)
-rsync -vrt --delete [local path] [user]@[host IP]:[path] 
+rsync -vrt --update [local path]/ [user]@[host IP]:[path] 
 
 # describe action for next folder
 echo "\nSyncing [folder]...\n"
 
 # sync remote to local (next folder)
-rsync -vrt --delete [user]@[host IP]:[path] [local path] && 
+rsync -vrt --delete [user]@[host IP]:[path]/ [local path] && 
 
 # sync local to remote (if successful)
-rsync -vrt --delete [local path] [user]@[host IP]:[path]
+rsync -vrt --delete [local path]/ [user]@[host IP]:[path]
 
 # ...
 
