@@ -18,10 +18,10 @@ echo "POST-DELETE\n"
 # to sync the contents of a directory
 
 # sync deletes
-rsync -vrt --delete [local path] [user]@[host IP]:[path] 
+rsync -vrt --update --delete [local path]/ [user]@[host IP]:[path] 
 
 # sync deletes (next folder)
-rsync -vrt --delete [local path2] [user]@[host IP]:[path]
+rsync -vrt --update --delete [local path2]/ [user]@[host IP]:[path]
 
 # ...
 
