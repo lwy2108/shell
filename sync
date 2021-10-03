@@ -48,10 +48,10 @@ rsync -vrt --update [local path]/ [user]@[host IP]:[path]
 echo "\nSyncing [folder]...\n"
 
 # sync remote to local (next folder)
-rsync -vrt --delete [user]@[host IP]:[path]/ [local path] && 
+rsync -vrt --update [user]@[host IP]:[path]/ [local path] && 
 
 # sync local to remote (if successful)
-rsync -vrt --delete [local path]/ [user]@[host IP]:[path]
+rsync -vrt --update [local path]/ [user]@[host IP]:[path]
 
 # ...
 
